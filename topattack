@@ -1,9 +1,16 @@
 #!/bin/bash
-
+#
+#
+# Top Attack list
+#   Displays by IP the top X failed access attempts
+#   Where X is user input, i.e. topattacker 5
+#
+# Checks for user input
 if [ -z "$1" ]; then
 echo -e "\nUsage: 'basename $0' <num> - Lists the top <num> attackers by IP"
 exit 0
 fi
+# Formats output
 echo " "
 echo "Persistant recent attackers"
 echo " "
