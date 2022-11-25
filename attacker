@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Attacker Script
+#    Checks auth.log for failed passwords and lists the
+#    associated IP addresses of the failed attempts along with the number of attempts
+#
+# 
+#
+echo "The following IP Addresses have unsuccessfully attempted to connect to the server:"
+awk '/Failed password for/ {x[$(NF-3)]++} END {for (i in x){printf "%3d %s\n", x[i], i}}' /var/log/auth.log | sort -nr
