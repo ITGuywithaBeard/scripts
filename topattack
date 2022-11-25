@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+echo -e "\nUsage: 'basename $0' <num> - Lists the top <num> attackers by IP"
+exit 0
+fi
+echo " "
+echo "Persistant recent attackers"
+echo " "
+echo "Attempts      IP "
+echo "----------------------------"
+awk '/Failed password for/ {x[$(NF-3)]++} END {for (i in x){printf "%3d %s\n", x[i], i}}' /var/log/auth.log | sort -nr | sed -e 's#\(.\{3\}\)\(.*\)#\1     \2#g' | head -$1

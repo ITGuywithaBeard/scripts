@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "The following IP Addresses have connected to the webserver:"
+awk '{ print $1 } ' /var/log/apache2/access.log | sort -nr | uniq -c
