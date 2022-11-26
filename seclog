@@ -18,7 +18,8 @@ echo "---------------------------"
 echo "1. Attacker List"
 echo "2. Apache Access List"
 echo "3. Fail2Ban SSHD Status"
-echo "4. Exit"
+echo "4. UFW Status"
+echo "5. Exit"
 }
 
 # Purpose - Display header message
@@ -52,16 +53,23 @@ sudo fail2ban-client status sshd
 #pause - "Press [Enter] key to conntinue..." 
 pause
 }
+
+function ufw(){
+sudo ufw status
+pause
+}
+
 function read_input(){
 local c
-read -p "Enter your choice [ 1 - 4 ] " c
+read -p "Enter an option [ 1 - 5 ] " c
 case $c in
 1) attacker_list ;;
 2) apache_log ;;
 3) fail2ban ;;
-4) clear && echo "Bye...for now..."; exit 0 ;;
+4) ufw ;;
+5) clear && echo "Bye...for now..." && pause; exit 0 ;;
 *)
-echo "Please select between choices 1 and 4 only."
+echo "Please select between choices 1 and 5 only."
 pause
 esac
 }
