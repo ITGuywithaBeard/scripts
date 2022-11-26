@@ -1,0 +1,9 @@
+#!/bin/bash
+
+clear && read -p "Enter Server Address:" addr
+if ping -c3 $addr > /dev/null
+then
+	echo "Ping Successful!"
+else
+	echo "Server Unreachable."
+fi
