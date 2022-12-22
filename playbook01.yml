@@ -1,0 +1,36 @@
+---
+- name: Configure host
+  hosts: servers
+  become: yes
+  tasks:
+    - name: Install vim and docker
+      apt:
+        name:
+          - vim
+          - docker
+          - net-tools
+        state: latest
+
+    - name: Set pubkey authentication in ssh config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PubkeyAuthentication"
+        line: "PubkeyAuthentication yes"
+        state: present
+
+    - name: Remove password authentication in ssh config
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: "^PasswordAuthentication"
+        line: "PasswordAuthentication no"
+        state: present
+
+    - name: Add public key to authorized keys
+      authorized_key:
+        user: jt
+        key: "{{ lookup('file', '/home/jt/.ssh/ansb_rsa.pub') }}"
+
+    - name: Set hostname
+      hostname:
+        # Replace with desired hostname
+        name: "dwsn-test01"
